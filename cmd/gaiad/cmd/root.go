@@ -100,6 +100,7 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig params.EncodingConfig) {
 		queryCommand(),
 		txCommand(),
 		keys.Commands(gaia.DefaultNodeHome),
+		NewParallelSendTxCmd(),
 	)
 }
 func addModuleInitFlags(startCmd *cobra.Command) {
