@@ -99,7 +99,7 @@ func parallelRun(cmd *cobra.Command) error {
 			fmt.Printf("new tx error %s\n", err.Error())
 		}
 
-		go func(clientCtx client.Context) {
+		go func(clientCtx client.Context, accSeq uint64) {
 			defer wg.Done()
 			for j := 0; j < tps; j++ {
 				err := flagSet.Set(flags.FlagSequence, strconv.FormatUint(accSeq, 10))
@@ -113,7 +113,7 @@ func parallelRun(cmd *cobra.Command) error {
 				}
 				accSeq++
 			}
-		}(clientCtx)
+		}(clientCtx, accSeq)
 	}
 	wg.Wait()
 	return nil
